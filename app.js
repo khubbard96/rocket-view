@@ -36,7 +36,7 @@ class ModelViewer {
     document.body.appendChild(this.renderer.domElement);
 
     this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement );
-
+    this.controls.autoRotate = true;
     this.loader = new THREE.GLTFLoader();
 
     this.animate = this.animate.bind(this);
@@ -44,11 +44,6 @@ class ModelViewer {
     this.loadModel(function() {
       requestAnimationFrame(self.animate);
     });
-
-
-
-
-    //initial setup functionality
 
   }
 
@@ -79,57 +74,7 @@ class ModelViewer {
       var object = gltf.scene;
       var clips = gltf.animations;
 
-      //self.setContent(object, clips);
-
-      object.updateMatrixWorld();
-      const box = new THREE.Box3().setFromObject(object);
-      const size = box.getSize(new THREE.Vector3()).length();
-      const center = box.getCenter(new THREE.Vector3());
-
-      var geometry = new THREE.BoxBufferGeometry( box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z );
-      var edges = new THREE.EdgesGeometry( geometry );
-      var line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
-      line.position.x = center.x;
-      line.position.y = center.y;
-      line.position.z = center.z;
-      //self.scene.add( line );
-
-
-      //controls.target.copy(center);
-      //controls.update();
-
-      //this.controls.reset();
-
-      object.position.x -= Math.abs(center.x - object.position.x);
-      object.position.y -= Math.abs(center.y - object.position.y);
-      object.position.z -= Math.abs(center.z - object.position.z);
-      //object.rotation.set(0,0,1.57,'XYZ');
-      //bject.rotation._z = Math.PI / 2;
-      //this.controls.maxDistance = size * 10;
-      self.camera.near = size / 100;
-      self.camera.far = size * 100;
-      self.camera.updateProjectionMatrix();
-
-      self.camera.position.copy(center);
-      self.camera.position.x = 0;
-      self.camera.position.y = 0;
-      self.camera.position.z = 3;
-      //self.camera.rotation.z = self.camera.rotation.z + 90;
-      self.camera.lookAt(center);
-      self.controls.update();
-
-      self.scene.add(object);
-
-      function animate() {
-        requestAnimationFrame(self.animate);
-
-        self.controls.update();
-
-        self.spotlights.mainSpot.position.copy(self.camera.position);
-
-        self.renderer.render(self.scene, self.camera);
-      }
-      animate();
+      self.setContent(object, clips);
       callback();
 
     }, undefined, function(error){
@@ -139,8 +84,6 @@ class ModelViewer {
 
   setContent ( object, clips ) {
 
-    //this.clear();
-
     object.updateMatrixWorld();
     const box = new THREE.Box3().setFromObject(object);
     const size = box.getSize(new THREE.Vector3()).length();
@@ -148,24 +91,24 @@ class ModelViewer {
 
     this.controls.reset();
 
-    object.position.x += (object.position.x - center.x);
-    object.position.y += (object.position.y - center.y);
-    object.position.z += (object.position.z - center.z);
+    object.position.x -= Math.abs(center.x - object.position.x);
+    object.position.y -= Math.abs(center.y - object.position.y);
+    object.position.z -= Math.abs(center.z - object.position.z);
     this.controls.maxDistance = size * 10;
-    this.defaultCamera.near = size / 100;
-    this.defaultCamera.far = size * 100;
-    this.defaultCamera.updateProjectionMatrix();
+    this.controls.maxPolarAngle = Math.PI;
+    this.camera.near = size / 100;
+    this.camera.far = size * 100;
+    this.camera.updateProjectionMatrix();
 
-    this.defaultCamera.position.copy(center);
-    this.defaultCamera.position.x += size / 2.0;
-    this.defaultCamera.position.y += size / 5.0;
-    this.defaultCamera.position.z += size / 2.0;
-    this.defaultCamera.lookAt(center);
-
+    this.camera.position.copy(center);
+    this.camera.position.x = 0;
+    this.camera.position.y = 0;
+    this.camera.position.z = 3;
+    this.camera.lookAt(center);
+    this.controls.update();
     this.controls.saveState();
 
     this.scene.add(object);
-
   }
 
   lights() {
