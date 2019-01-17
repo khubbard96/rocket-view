@@ -3,6 +3,8 @@ const THREE = window.THREE = require('three');
 
 require('three/examples/js/loaders/GLTFLoader');
 require('three/examples/js/controls/OrbitControls');
+const ObjWrapper = require('./objectwrapper');
+const Rocket = require('./rocket');
 
 class ModelViewer {
 
@@ -70,16 +72,9 @@ class ModelViewer {
 
     var self = this;
 
-    loader.load('assets/models/uslirocket_step.glb', function(gltf){
-      var object = gltf.scene;
-      var clips = gltf.animations;
+    var rocket = new Rocket(undefined, "NOVA II");
 
-      self.setContent(object, clips);
-      callback();
 
-    }, undefined, function(error){
-      console.log(error);
-    });
   }
 
   setContent ( object, clips ) {
