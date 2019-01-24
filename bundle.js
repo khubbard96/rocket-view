@@ -29,16 +29,16 @@ class ModelViewer {
     this.default_camera = new THREE.PerspectiveCamera(0.8 * 180 / Math.PI, window.innerWidth / window.innerHeight, 0.01, 1000);
     this.camera = this.default_camera;
     this.scene.add(this.camera);
-    this.scene.add( new THREE.AxesHelper( 10 ) );
+    //this.scene.add( new THREE.AxesHelper( 10 ) );
 
 
     this.renderer = new THREE.WebGLRenderer({antialias: true});
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
     this.renderer.gammaOutput = true;
     this.renderer.gammaFactor = 2.2;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    document.body.appendChild(this.renderer.domElement);
+    document.getElementById('model_viewer').appendChild(this.renderer.domElement);
 
     this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement );
     this.controls.autoRotate = true;
@@ -46,7 +46,16 @@ class ModelViewer {
 
     this.animate = this.animate.bind(this);
     //this.generateRocketParts = this.generateRocketParts.bind(this);
+
+    this.mouse = new THREE.Vector2();
+    this.raycaster = new THREE.Raycaster();
     var self = this;
+    window.addEventListener("mousemove", function(event){
+        self.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        self.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    }, false)
+
     this.loadModel(function() {
       requestAnimationFrame(self.animate);
     });
@@ -65,6 +74,15 @@ class ModelViewer {
   }
 
   render() {
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+
+    var intersects = this.raycaster.intersectObject(this.scene.children[3].children[0]);
+
+    for(var i = 0; i < intersects.length; i++) {
+      intersects[i].object.material.color.set(0xff0000);
+    }
+
+
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -84,15 +102,16 @@ class ModelViewer {
     var partsLoaded = 0;
     var rawParts = [];
     var partNames = [];
-    this.partNames.forEach(file => {
-      loader.load('./assets/models/' + file, function(glb){
+    var self = this;
+    partDef.partNames.forEach(file => {
+      self.loader.load('./assets/models/' + file, function(glb){
         var object = glb.scene;
         //self.createRocketPart(object, file);
         rawParts.push(object);
         partNames.push(file);
         partsLoaded++;
         if (partsLoaded == numParts) {
-          parts = 0; partsLoaded = 0;
+          numParts = 0; partsLoaded = 0;
           oncomplete(rawParts);
         }
       }, undefined, function(error){
@@ -103,7 +122,7 @@ class ModelViewer {
   }
 
   setContent ( object, clips ) {
-
+    object = object.rawModel;
     object.updateMatrixWorld();
     const box = new THREE.Box3().setFromObject(object);
     const size = box.getSize(new THREE.Vector3()).length();
@@ -121,9 +140,9 @@ class ModelViewer {
     this.camera.updateProjectionMatrix();
 
     this.camera.position.copy(center);
-    this.camera.position.x = 0;
-    this.camera.position.y = 0;
-    this.camera.position.z = 3;
+    this.camera.position.x = -2;
+    this.camera.position.y = 2;
+    this.camera.position.z = 5;
     this.camera.lookAt(center);
     this.controls.update();
     this.controls.saveState();
