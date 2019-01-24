@@ -1,45 +1,32 @@
 const TWEEN = require('@tweenjs/tween.js');
-const FS = require('fs');
-const rocketPartsDir = "./assets/parts/";
+const FS = require('fs-web');
+const partDef = require("./assets/parts/part_definition.json");
 
 module.exports = class Rocket {
 
-  constructor(rocketParts, rocketName) {
+  constructor(rocketParts, partNames, rocketName) {
     this.parts = [];
-    this.partNames = [];
-
-    buildRocket(this, function() {
-      //callback for when the rocket is done building
+    this.partNames = partNames;
+    var i = 0;
+    var self = this;
+    rocketParts.forEach(part => {
+      var rPart = new RocketPart(part, partNames[i]);
+      self.parts.push(rPart);
+      i++;
     });
   }
 
   //load in each of the rocket parts and create RocketPart objects
   buildRocket(rocketObj, callback) {
-    FS.readdirSync(rocketPartsDir).forEach(file => {
-      console.log(file);
-      rocketObj.partNames.push(file);
-    });
-
-    var parts = rocketObj.partNames.length;
+    var self = this;
+    var parts = this.partNames.length;
     var partsLoaded = 0;
-
-    rocketObj.partNames.forEach(file => {
-      loader.load(rocketPartsDir + file, function(glb){
-        var object = glb.scene;
-        rocketObj.createRocketPart(object, file);
-        partsLoaded++;
-        if (partsLoaded == parts) {
-          parts = 0; partsLoaded = 0;
-          callback();
-        }
-      }, undefined, function(error){
-        console.log(error);
-      });
-    });
 
   }
 
+
   createRocketPart(rawModel, name){
+    debugger;
     var part = new RocketPart(rawModel, name);
     this.parts.push(part);
   }

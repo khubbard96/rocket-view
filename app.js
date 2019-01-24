@@ -5,6 +5,8 @@ require('three/examples/js/loaders/GLTFLoader');
 require('three/examples/js/controls/OrbitControls');
 const ObjWrapper = require('./objectwrapper');
 const Rocket = require('./rocket');
+const partDef = require("./assets/parts/part_definition.json");
+
 
 class ModelViewer {
 
@@ -42,6 +44,7 @@ class ModelViewer {
     this.loader = new THREE.GLTFLoader();
 
     this.animate = this.animate.bind(this);
+    //this.generateRocketParts = this.generateRocketParts.bind(this);
     var self = this;
     this.loadModel(function() {
       requestAnimationFrame(self.animate);
@@ -65,15 +68,36 @@ class ModelViewer {
   }
 
   loadModel(callback) {
-
-    this.lights();
-
-    const loader = this.loader;
-
     var self = this;
+    this.generateRocketParts(function(resultParts){
+      self.lights();
+      const loader = self.loader;
+      var rocket = new Rocket(resultParts, "NOVA II");
+      self.setContent(rocket.parts[0], undefined);
+      requestAnimationFrame(self.animate);
+    });
+  }
 
-    var rocket = new Rocket(undefined, "NOVA II");
-
+  generateRocketParts(oncomplete) {
+    var numParts = partDef.parts;
+    var partsLoaded = 0;
+    var rawParts = [];
+    var partNames = [];
+    this.partNames.forEach(file => {
+      loader.load('./assets/models/' + file, function(glb){
+        var object = glb.scene;
+        //self.createRocketPart(object, file);
+        rawParts.push(object);
+        partNames.push(file);
+        partsLoaded++;
+        if (partsLoaded == numParts) {
+          parts = 0; partsLoaded = 0;
+          oncomplete(rawParts);
+        }
+      }, undefined, function(error){
+        console.log(error);
+      });
+    });
 
   }
 

@@ -19,6 +19,9 @@
   "homepage": "https://github.com/khubbard96/rocket-view#readme",
   "devDependencies": {
     "browserify": "^16.2.3",
+    "file-system": "^2.2.2",
+    "fs": "0.0.1-security",
+    "fs-web": "^1.0.1",
     "three": "^0.100.0"
   },
   "dependencies": {
