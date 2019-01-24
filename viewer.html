@@ -4,75 +4,65 @@
     <meta charset="utf-8">
     <title></title>
     <style>
-      * {
+      html, body {
         margin: 0;
         font-family: sans-serif;
+        height: 100%;
       }
-
       body {
         background-color: black;
-        height: -webkit-fill-available;
       }
-
       #main_content {
+        height: 100%;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        margin: auto 0;
       }
-
-      #stage_list, #stage_description {
-        border-radius: 6px;
-        border: solid 2px white;
+      #stage_navigator {
+        background-color: #464c34;
+        flex-basis: 12.5%;
         color: white;
-        flex-basis: 150px;
-        margin: 20px;
       }
-      #stage_description {
-        padding: 10px;
-      }
-
-      .stage-dropdown {
-        padding: 10px 20px;
+      .stage-title {
+        text-align: center;
+        padding: 20px;
         cursor: pointer;
       }
-      .stage-dropdown:hover {
-        background-color: white;
-        color: black;
+
+      .stage-title.selected {
+        -webkit-box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.75);
+        -moz-box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.75);
+        box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.75);
+        background-color: #808965
       }
 
-      .stage-dropdown:not(:first-of-type) {
-        border-top: 2px solid white;
+      .stage-title:hover{
+        -webkit-box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,1), inset 0px -11px 8px -10px rgba(0,0,0,1);
+        -moz-box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,1), inset 0px -11px 8px -10px rgba(0,0,0,1);
+        box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,1), inset 0px -11px 8px -10px rgba(0,0,0,1);
+        background-color: #808965;
       }
     </style>
 
   </head>
   <body>
     <div id="main_content">
-      <div id="stage_list">
-        <div class="stage-dropdown">
-          STAGE I
-        </div>
-        <div class="stage-dropdown">
-          STAGE II
-        </div>
-        <div class="stage-dropdown">
-          STAGE III
-        </div>
-        <div class="stage-dropdown">
-          STAGE IV
+      <div id="stage_navigator">
+        <div id="stage_nav_subwrap">
+          <div class="stage-title" id="rocket_stage_1">
+            STAGE I
+          </div>
+          <div class="stage-title" id="rocket_stage_2">
+            STAGE II
+          </div>
+          <div class="stage-title" id="rocket_stage_3">
+            STAGE III
+          </div>
+          <div class="stage-title" id="rocket_stage_4">
+            STAGE IV
+          </div>
         </div>
       </div>
-      <div id="stage_description">
-        STAGE I <br /><br />
-        This is information pertaining to the first stage of the rocket. A brief
-        description and some technical data will be offered, along with a direction
-        to the part on the model.
-
-      </div>
-      <div id="model_viewer"></div>
     </div>
-
 
 
     <!---<script type="text/javascript" src="bundle.js"></script>--->
