@@ -6,7 +6,7 @@ require('three/examples/js/controls/OrbitControls');
 const ObjWrapper = require('./objectwrapper');
 const Rocket = require('./rocket');
 const partDef = require("./assets/parts/part_definition.json");
-
+const jQuery = require("jquery");
 
 class ModelViewer {
 
@@ -37,7 +37,7 @@ class ModelViewer {
     this.renderer.gammaFactor = 2.2;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    document.getElementById('model_viewer').appendChild(this.renderer.domElement);
+    //document.getElementById('stage_description_container').appendChild(this.renderer.domElement);
 
     this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement );
     this.controls.autoRotate = true;
@@ -177,3 +177,20 @@ class ModelViewer {
 
 }
 var view = new ModelViewer(document.createElement('div'));
+
+//bind and run interface events
+(function($){
+  function bindEvents() {
+
+    var partNav = $("#stage_navigator");
+
+    partNav.find(".stage-title").off().on("click", function(e) {
+      partNav.find(".stage-title").removeClass("selected");
+      $(e.target).addClass("selected");
+    });
+  }
+
+  $(document).ready(function() {
+    bindEvents();
+  });
+})(jQuery)

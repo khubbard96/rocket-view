@@ -18,9 +18,13 @@
         flex-direction: row;
       }
       #stage_navigator {
-        background-color: #464c34;
+        background-color: #2d2f33;
         flex-basis: 12.5%;
         color: white;
+      }
+      #stage_description_container {
+        flex-basis: 25%;
+        position: relative;
       }
       .stage-title {
         text-align: center;
@@ -29,20 +33,25 @@
       }
 
       .stage-title.selected {
-        -webkit-box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.75);
-        -moz-box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.75);
-        box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.75);
-        background-color: #808965
-      }
-
-      .stage-title:hover{
         -webkit-box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,1), inset 0px -11px 8px -10px rgba(0,0,0,1);
         -moz-box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,1), inset 0px -11px 8px -10px rgba(0,0,0,1);
         box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,1), inset 0px -11px 8px -10px rgba(0,0,0,1);
-        background-color: #808965;
+        background-color: #3760b2;
+      }
+
+      .stage-title:hover{
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        background-color: #6d778c;
+      }
+
+      #stage_desc_wrap {
+        position: relative;
+        top: 0;
+        left:
       }
     </style>
-
   </head>
   <body>
     <div id="main_content">
@@ -62,10 +71,20 @@
           </div>
         </div>
       </div>
+      <div id="stage_description_container">
+        <div id="stage_desc_wrap">
+          <div class="stage-description" id="stage_one_description">
+            Here is the information for stage 1. this is a little slidey boi that
+            does fun stuff.
+          </div>
+        </div>
+
+      </div>
     </div>
 
 
-    <!---<script type="text/javascript" src="bundle.js"></script>--->
+    <script type="text/javascript" src="bundle.js"></script>
+
 
   </body>
 </html>

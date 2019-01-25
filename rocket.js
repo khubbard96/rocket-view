@@ -1,5 +1,4 @@
 const TWEEN = require('@tweenjs/tween.js');
-const FS = require('fs-web');
 const partDef = require("./assets/parts/part_definition.json");
 
 module.exports = class Rocket {
