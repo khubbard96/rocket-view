@@ -4,4 +4,10 @@
   "partNames" :[
     "uslirocket_step.glb"
   ],
+  "partDescriptions": {
+    "rocket_stage_1": "Rocket stage 1 description. There will be big slidey bois and stuff.",
+    "rocket_stage_2": "Rocket stage 2. More and more sliding all around.",
+    "rocket_stage_3": "Rocket stage 3. Boy this is alot of stuff.",
+    "rocket_stage_4": "Rocket stage 4. I think this is the last one."
+  }
 }

@@ -184,9 +184,12 @@ var view = new ModelViewer(document.createElement('div'));
 
     var partNav = $("#stage_navigator");
 
-    partNav.find(".stage-title").off().on("click", function(e) {
-      partNav.find(".stage-title").removeClass("selected");
+    partNav.find(".stage-item").off().on("click", function(e) {
+      partNav.find(".stage-item").removeClass("selected");
       $(e.target).addClass("selected");
+      //
+      var partDescription = partDef.partDescriptions[$(e.target).attr("id")];
+      $(".stage-description").text(partDescription);
     });
   }
 
