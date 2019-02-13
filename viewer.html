@@ -89,10 +89,11 @@
         left: 40px;
         top: 64px;
         width: 330px;
-        background-color: #909393;
+        background-color: #969696;
         padding: 30px;
         font-size: 18pt;
         border-radius: 0 0 10px 10px;
+        transition: height 0.3s;
       }
       #information_billboard #information_title{
         margin-bottom: 20px;
@@ -113,6 +114,10 @@
       #information_billboard #information_buttons div {
         cursor: pointer;
         position: absolute;
+      }
+      #information_billboard #information_buttons div.disabled {
+        color: #5d5d5d;
+        cursor: unset;
       }
       #information_billboard #information_buttons #info_prev {
         left: 0;
@@ -154,7 +159,7 @@
         </div>
         <div id="information_post"></div>
         <div id="information_buttons">
-          <div id="info_prev"><< Previous</div>
+          <div id="info_prev" class="disabled"><< Previous</div>
           <div id="info_next">Next >></div>
         </div>
 
@@ -163,16 +168,16 @@
 
       <div id="stage_navigator" class="navbar">
         <div id="stages_container" class="center">
-          <div class="stage-item" id="stage_1">
+          <div class="stage-item" id="stage_1" data-stage-id="rocket_stage_1">
             Stage I
           </div>
-          <div class="stage-item" id="stage_2">
+          <div class="stage-item" id="stage_2" data-stage-id="rocket_stage_2">
             Stage 2
           </div>
-          <div class="stage-item" id="stage_3">
+          <div class="stage-item" id="stage_3" data-stage-id="rocket_stage_3">
             Stage 3
           </div>
-          <div class="stage-item" id="stage_4">
+          <div class="stage-item" id="stage_4" data-stage-id="rocket_stage_4">
             Stage 4
           </div>
         </div>

@@ -5,9 +5,41 @@
     "uslirocket_step.glb"
   ],
   "partDescriptions": {
-    "rocket_stage_1": "Rocket stage 1 description. There will be big slidey bois and stuff.",
-    "rocket_stage_2": "Rocket stage 2. More and more sliding all around.",
-    "rocket_stage_3": "Rocket stage 3. Boy this is alot of stuff.",
-    "rocket_stage_4": "Rocket stage 4. I think this is the last one."
+    "rocket_stage_1": {
+      "title": "Stage 1",
+      "info": [
+        "This is the first stage of the rocket. The rocket lifts off from a base.",
+      "The rocket generates a thrust of 500 N, and is capable of reaching a height of 1500 ft.",
+      "Stability fins keep the rocket on aim to achieve maxium height. Foil fins are used to control the height."
+      ],
+      "next": true,
+      "prev": false
+    },   
+    "rocket_stage_2": {
+      "title": "Stage 2",
+      "info": [
+        "The second stage involves falling back to the earth and recovery.",
+        "The chute deploys when the rocket reaches its maximum height. It slows the rocket to just over 5ft/s."
+      ],
+      "next":true,
+      "prev":true
+    },
+    "rocket_stage_3": {
+      "title":"Stage 3",
+      "info": [
+        "Once the rocket falls back to earth, the rover is deployed.",
+        "The rover is capable of travelling a distance of 10m over rough or smooth ground. Rover uses a specialized deployment mechanism."
+      ],
+      "next":true,
+      "prev":true
+    },
+    "rocket_stage_4": {
+      "title": "Stage 4",
+      "info": [
+        "I don't have any idea of whats going to go here but we will see."
+      ],
+      "next": false,
+      "prev":true
+    }
   }
 }

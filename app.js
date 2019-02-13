@@ -188,8 +188,28 @@ var view = new ModelViewer(document.createElement('div'));
       partNav.find(".stage-item").removeClass("selected");
       $(e.target).addClass("selected");
       //
-      var partDescription = partDef.partDescriptions[$(e.target).attr("id")];
-      $(".stage-description").text(partDescription);
+
+      var selectStage = $(e.target).attr("data-stage-id");
+
+      var descArr = partDef.partDescriptions[selectStage];
+      var informationTitle = descArr.title;
+      var descFormat = "";
+      descArr.info.forEach(function(el, i){
+        descFormat += el;
+        if (i < descArr.info.length - 1) {
+          descFormat += "<br><br>"
+        }
+      });
+      $("#information_title, #information_info").fadeOut("slow", function(){
+        $("#information_title").html(informationTitle);
+        $("#information_info").html(descFormat);
+        $(this).fadeIn("slow");
+        $("#information_billboard #info_next, #information_billboard #info_prev").removeClass("disabled");
+        if(!descArr.next) $("#information_billboard #info_next").addClass("disabled");
+        if(!descArr.prev) $("#information_billboard #info_prev").addClass("disabled");
+
+      });
+
     });
   }
 
